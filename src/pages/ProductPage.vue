@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="body-wrapper">
         <div>
             List Of Products
         </div>

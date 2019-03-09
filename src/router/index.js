@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import ContactUsPage from '@/pages/ContactUsPage'
+import RegisterPage from '@/pages/RegisterPage'
 import MemberPage from '@/pages/MemberPage'
 import UpdateMemberPage from '@/pages/UpdateMemberPage'
 
@@ -10,14 +9,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/contact-us',
-      name: 'ContactUs',
-      component: ContactUsPage
+      path: '/register',
+      name: 'RegisterPage',
+      component: RegisterPage
     },
     {
       path: '/members',

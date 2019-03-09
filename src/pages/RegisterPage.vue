@@ -1,59 +1,90 @@
 <template>
-    <div class="container">
-        <div class="wrapper">
+    <div class="container body-wrapper">
+        <h3 class="text-center">
+            Register    
+        </h3>
+
+        <div class="form-group">
             <label for="name">
                 Name :
             </label>
-            <input 
+            <input
+                class="form-control"
                 id="name" 
                 v-model="formData.name" 
                 type="text" 
-                placeholder="Input Your Name" />
+                placeholder="Input Your Name"
+                required />
         </div>
-        <div class="wrapper">
+        <div class="form-group">
             <label for="email">
                 Email :
             </label>
-            <input 
-                id="email" 
+            <input
+                class="form-control"
+                id="email"
                 v-model="formData.email" 
-                type="email" 
+                type="email"
                 placeholder="Input Your Email" />
-            <div class="error" v-if="!isEmailValid">
+            <div 
+                class="alert alert-danger" 
+                role="alert" 
+                v-if="!isEmailValid">
                 Email Not Valid
             </div>
         </div>
-        <div class="wrapper">
+        <div class="form-group">
             <label for="password">
                 Password :
             </label>
-            <input 
+            <input
+                class="form-control"
                 id="password" 
                 v-model="formData.password" 
                 type="password" 
                 placeholder="Input Your Password" />
         </div>
-        <div class="wrapper">
+        <div class="form-group">
             <label for="age">
                 Age :
             </label>
             <input
+                class="form-control"
                 type="number"
                 id="age" 
                 v-model="formData.age" 
                 placeholder="Input Your Number" />
         </div>
         <div class="wrapper">
-            <button class="submit" @click="submitData">Submit</button>
+            <button class="btn submit" @click="submitData">Submit</button>
         </div>
+
+        <Modal
+            ref="successModal"
+            title="Information" 
+            content="Data Inserted Successfully"
+            type="success">
+        </Modal>
+
+        <Modal
+            ref="dangerModal"
+            title="Warning"
+            content="Data Error"
+            type="warning">
+        </Modal>
+
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Modal from '@/components/Modal'
 
 export default {
     name: 'ContactUsPage',
+    components: {
+        Modal
+    },
     data() {
         return {
             formData:{
@@ -61,20 +92,23 @@ export default {
                 email: "",
                 password: "",
                 age: ""
-            },
-            count : 0
+            }
         }
     },
     methods: {
         submitData () {
             if(!this.validate){
-                alert("please fix data")
+                this.$refs.dangerModal.showModal()
                 return
             }
+            
             axios.post('/api/members',this.formData).then(resp => {
-                alert("Data Inserted")
-                this.$router.push({path : '/members'})
+                this.$refs.successModal.showModal()
             })
+            
+            setTimeout( () => {
+                this.$router.push({path : '/members'})
+            },2000)
         }
     },
     computed: {
@@ -101,57 +135,20 @@ export default {
 </script>
 
 <style scope>
-    .container{
-        max-width: 500px;
-        margin: 0 auto;
-        background-image: url('../assets/logo.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-
-    label{
-        float: left;
-        display: block;
-        margin-bottom: 5px;   
-    }
-
-    .wrapper{
-        margin: 10px;
-    }
-
-    .error{
-        padding-top:10px;
-        text-align: left;
-        color: red;
-    }
-
-    input[type=text],input[type=password],input[type=email],input[type=number]{
-        display: block;
-        width: 100%;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.42857143;
-        color: #555;
-        background-color: #fff;
-        background-image: none;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
-    }
-
     .submit{
         background-color: #078ed3;
-        border: none;
-        outline: 0;
         color: #ffffff;
         font-size: 13px;
         line-height: 13px;
         padding: 12px 15px;
-        text-transform: uppercase;
-        border-radius: 2px;
-        vertical-align: top;
-        background-image: none;
+    }
+
+    .alert{
+        padding: 0.3rem 1.25rem;
+        margin-top: 5px;
+    }
+
+    .body-wrapper h3{
+
     }
 </style>
