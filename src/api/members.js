@@ -6,5 +6,8 @@ export default {
   },
   getMemberByID (id) {
     return axios.get('/api/members/' + id)
+  },
+  deleteMemberByID (id) {
+    return axios.delete('/api/members/' + id)
   }
 }

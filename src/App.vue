@@ -8,16 +8,21 @@
 <script>
 import Navbar from '@/components/Navbar'
 import userApi from '@/api/users'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'App',
   components : {
     Navbar
   },
+  methods: {
+    ...mapActions([
+      'getUserData'
+    ])
+  },
   created () {
-    userApi.getUser().then( (resp) => {
-      this.$store.commit('setUserData',resp.data)
-    })
+    this.getUserData()
+    // this.$store.dispatch('getUserData')
   }
 }
 </script>

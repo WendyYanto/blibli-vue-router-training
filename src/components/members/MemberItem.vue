@@ -3,30 +3,34 @@
         <h3 class="card-title">
         {{item.name}}
         </h3>
-        <p class="card-text">               
-        Email : {{item.email}}
-        </p>
-        <p class="card-text">
-        Password : {{item.password}}
-        </p>
-        <router-link :to="'/members/'+item.id">Details</router-link>
-        <!-- <button
+        <router-link 
+            class="btn btn-warning" 
+            :to="'/members/'+item.id">
+            Details
+        </router-link>
+        
+        <button
             class="btn btn-danger card-link" 
-            @click="deleteData(i.id,index)">
-                Delete
+            @click="deleteData()">
+                {{$t('app.content.Delete')}}
         </button>
         <button
-            class="btn btn-warning card-link"
+            class="btn btn-primary card-link"
             @click="updateData(i.id,index)">
-                Edit
-        </button> -->
+                {{$t('app.content.Edit')}}
+        </button>
     </div>
 </template>
 
 <script>
 export default {
     name: "MemberItem",
-    props: ['item']
+    props: ['item'],
+    methods: {
+        deleteData () {
+            this.$emit('deleteCurrent')
+        }
+    },
 }
 </script>
 

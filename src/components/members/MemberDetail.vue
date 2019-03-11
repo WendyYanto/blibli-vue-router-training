@@ -2,21 +2,27 @@
     <div class="container">
         <div class="card" style="margin-top:40px;">
             <div class="card-body">
-                <div class="card-title">
+                <div class="card-title form-group">
                 <h3>Member Detail : {{id}}</h3>
                 <span class="red" v-if="isNew">
                     New !
                 </span>
                 </div>
-                <div class="card-text">
-                Name : {{item.name}}
+                <div class="card-text form-group">
+                    Name : 
+                    <input type="text" v-model="memberDetail.name" class="form-control">
                 </div>
-                <div class="card-text">
-                Email : {{item.email}}
+                <div class="card-text form-group">
+                    Email :
+                    <input type="email" v-model="memberDetail.email" class="form-control"> 
                 </div>
-                <div class="card-text">
-                Password : {{item.password}}
+                <div class="card-text form-group">
+                    Password :
+                    <input type="text" v-model="memberDetail.password" class="form-control">
                 </div>
+                <div class="form-group">
+                    <button class="btn btn-success" @click="save">Save</button>
+                </div>  
             </div>
         </div>
     </div>
@@ -24,27 +30,35 @@
 
 <script>
 import membersApi from '@/api/members'
+import {mapGetters} from 'vuex'
 
 export default {
     name: "MemberDetail",
-    data(){
-        return{
-            item: {}
-        }
-    },
     computed: {
         id() {
             return this.$route.params.id
         },
         isNew(){    
             return this.$route.query.newProduct === 'true'
-        }
+        },
+        ...mapGetters(['memberDetail'])
     },
     created(){
-        membersApi.getMemberByID(this.id).then(resp => {
-            this.item = resp.data
+        this.$store.dispatch('getMemberDetail',
+        {
+            id: this.id
         })
-    }
+    },
+    watch: {
+        memberDetail (value) {
+            this.memberDetail = {...value}
+        }
+    },
+    methods: {
+        save() {
+            alert("Saved")
+        }
+    },
 }
 </script>
 

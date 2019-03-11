@@ -11,18 +11,28 @@
             <ul class="navbar-nav mr-auto">
                 <router-link tag="li" class="nav-item" active-class="active" to="/register">
                     <a class="nav-link">
-                        Register <span class="sr-only">(current)</span>
+                        {{$t('app.header.menus.Register')}} <span class="sr-only">(current)</span>
                     </a>
                 </router-link>
                 <router-link tag="li" class="nav-item" active-class="active" to="/members">
                     <a class="nav-link">
-                        Member
+                        {{$t('app.header.menus.Member')}}
                     </a>
-                </router-link>          
+                </router-link>        
             </ul>
+            <div class="nav-item lang" style="float:right;">
+                <a @click="changeLang('id')" :class="{current_active: isActive('id')}" class="nav-link">
+                    <span>Indonesia</span>
+                </a>
+            </div>    
+            <div class="nav-item lang" style="float:right;">
+                <a @click="changeLang('en')" :class="{current_active: isActive('en')}" class="nav-link">
+                    <span>English</span>
+                </a>
+            </div>  
             <div class="nav-item" style="float:right;">
                 <a class="nav-link">
-                {{userData.name}}
+                {{ userData.name }}
                 </a>
             </div>   
         </div>
@@ -30,19 +40,42 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
-    export default {
-        name: "Navbar",
-        computed: {
-            ...mapGetters(['userData'])
+const LANGS = ['en','id']
+
+export default {
+    name: "Navbar",
+    data () {
+        return {
+            LANGS
         }
-    }
+    },
+    computed: {
+        ...mapGetters(['userData'])
+    },
+    methods: {
+        changeLang(id) {
+            this.$i18n.locale = id
+        },
+        isActive(id){
+            return this.$i18n.locale === id
+        }
+    },
+}
 </script>
 
 <style>
     .body-wrapper{
         max-width: 500px;
         margin: 0 auto;
+    }
+
+    .lang{
+        font-size: 13px;
+    }
+
+    .current_active{
+        color: red !important;
     }
 </style>
