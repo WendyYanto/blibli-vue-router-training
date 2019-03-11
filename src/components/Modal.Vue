@@ -31,7 +31,6 @@
         data() {
             return {
                 show : false,
-                backgroundColor : "",
                 modalHeader : 'modal-header'
             }
         },
