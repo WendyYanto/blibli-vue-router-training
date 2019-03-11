@@ -5,37 +5,17 @@
         </h3>
         
         <div class="card">
-
             <div
                 class="card-body" 
                 v-if="items.length == 0">
                 No Members
             </div>
 
-            <div 
-                class="card-body"
-                v-for="(i,index) in items"
+            <MemberItem
+                :item="i"
+                v-for="i in items"
                 :key="i.id">
-                    <h3 class="card-title">
-                    {{i.name}}
-                    </h3>
-                    <p class="card-text">               
-                    Email : {{i.email}}
-                    </p>
-                    <p class="card-text">
-                    Password : {{i.password}}
-                    </p>
-                    <button
-                        class="btn btn-danger card-link" 
-                        @click="deleteData(i.id,index)">
-                            Delete
-                    </button>
-                    <button
-                        class="btn btn-warning card-link"
-                        @click="updateData(i.id,index)">
-                            Edit
-                    </button>
-            </div>
+            </MemberItem>
         </div>
 
         <Modal
@@ -49,13 +29,15 @@
 </template>
 
 <script>
-import axios from 'axios'
+import membersApi from '@/api/members'
 import Modal from '@/components/Modal'
+import MemberItem from '@/components/members/MemberItem'
 
 export default {
     name: "MemberPage",
     components: {
-        Modal
+        Modal,
+        MemberItem
     },
     data() {
         return {
@@ -63,7 +45,7 @@ export default {
         }
     },
     created() {
-        axios.get("/api/members").then((resp) =>
+        membersApi.getMembers().then((resp) =>
             this.items = resp.data
         )
     },

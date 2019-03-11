@@ -11,6 +11,7 @@
             <h2 class="recommended-title">Recommended</h2>
             <div class="row">
                 <div class="col text-center">
+                    <h4></h4>
                     <img src="@/assets/sepatu.jpg" width="200" class="img-responsive">
                 </div>
                 <div class="col text-center">
