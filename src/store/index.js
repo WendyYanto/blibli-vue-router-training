@@ -5,9 +5,9 @@ import membersApi from '@/api/members'
 
 Vue.use(Vuex)
 
-const state = {
+let state = {
   userData: {},
-  members: {},
+  members: [],
   memberDetail: {}
 }
 
@@ -20,6 +20,16 @@ const mutations = {
   },
   setMemberDetail (state, value) {
     state.memberDetail = value
+  },
+  setLatestMembers (state, value) {
+    let latestMembers = state.members.filter(data =>
+      data.id !== value.id
+    )
+    state.members = latestMembers
+  },
+  setUpdatedMemberDetail (state, value) {
+    let index = state.members.findIndex(curr => curr.id === value.id)
+    state.members[index] = value
   }
 }
 
@@ -37,6 +47,17 @@ const actions = {
   getMemberDetail ({commit}, {id}) {
     membersApi.getMemberByID(id).then((resp) => {
       commit('setMemberDetail', resp.data)
+    })
+  },
+  deleteMemberDetail ({commit}, {id}) {
+    membersApi.deleteMemberByID(id).then((resp) => {
+      commit('setLatestMembers', resp.data)
+    })
+  },
+  updateMemberDetail ({commit}, {data}) {
+    let id = data.id
+    membersApi.updateMemberByID(id, data).then((resp) => {
+      commit('setUpdatedMemberDetail', resp.data)
     })
   }
 }

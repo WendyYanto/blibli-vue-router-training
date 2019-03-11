@@ -15,31 +15,69 @@
                 <div class="card-text form-group">
                     Email :
                     <input type="email" v-model="memberDetail.email" class="form-control"> 
+                    <div 
+                        class="alert alert-danger" 
+                        role="alert" 
+                        v-if="!isEmailValid">
+                        Email Not Valid
+                    </div>
                 </div>
                 <div class="card-text form-group">
                     Password :
                     <input type="text" v-model="memberDetail.password" class="form-control">
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success" @click="save">Save</button>
+                    <button class="btn btn-success" @click="updateData()">Save</button>
                 </div>  
             </div>
         </div>
+
+        <Modal
+            ref="successModal"
+            title="Information" 
+            content="Data Inserted Successfully"
+            type="success">
+        </Modal>
+
+        <Modal
+            ref="dangerModal"
+            title="Warning"
+            content="Data Error"
+            type="warning">
+        </Modal>
     </div>
 </template>
 
 <script>
 import membersApi from '@/api/members'
 import {mapGetters} from 'vuex'
+import Modal from '@/components/Modal'
 
 export default {
     name: "MemberDetail",
+    components: {
+        Modal
+    },
     computed: {
         id() {
             return this.$route.params.id
         },
         isNew(){    
             return this.$route.query.newProduct === 'true'
+        },
+        validate(){
+            const data = this.memberDetail
+            if(!data.name || 
+              !data.email || 
+              !data.age ||
+              !data.password ||
+              !this.isEmailValid){
+              return false
+            }
+            return true
+        },
+        isEmailValid(){
+            return this.memberDetail.email.indexOf('@') > 0
         },
         ...mapGetters(['memberDetail'])
     },
@@ -55,8 +93,17 @@ export default {
         }
     },
     methods: {
-        save() {
-            alert("Saved")
+        updateData () {
+            if(!this.validate){
+                this.$refs.dangerModal.showModal()
+                return false
+            }
+
+            this.$store.dispatch('updateMemberDetail',{
+                data: this.memberDetail
+            })
+
+            this.$refs.successModal.showModal()
         }
     },
 }
@@ -70,6 +117,10 @@ export default {
 
     .red {
         color: red;
+    }
+
+    .alert {
+        padding: .3rem 1.25rem;
     }
 </style>
 
