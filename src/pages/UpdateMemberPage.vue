@@ -110,7 +110,7 @@ export default {
             
             setTimeout( () => {
                 this.$router.push({path : '/members'})
-            },3000)
+            },1000)
 
         }
     },

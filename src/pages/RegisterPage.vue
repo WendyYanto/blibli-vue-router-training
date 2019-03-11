@@ -56,7 +56,10 @@
                 placeholder="Input Your Number" />
         </div>
         <div class="wrapper">
-            <button class="btn submit" @click="submitData">Submit</button>
+            <button class="btn submit"
+                @click="submitData">
+                    Submit        
+            </button>
         </div>
 
         <Modal

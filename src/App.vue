@@ -16,7 +16,8 @@ export default {
 }
 </script>
 
-<style scope>
+<style>
+
 .button{
   background-color: #078ed3;
   padding: 5px;
@@ -31,4 +32,12 @@ export default {
   margin: 10px 0;
 }
 
+@font-face{
+  font-family: 'DINPro';
+  src: url('./assets/fonts/DINPro-Medium.otf');
+}
+
+body,html{
+  font-family: 'DINPro';
+}
 </style>
