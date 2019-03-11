@@ -13,8 +13,8 @@
 
             <MemberItem
                 :item="i"
-                v-for="(i,index) in members"
-                v-on:deleteCurrent="deleteData(i.id,index)"
+                v-for="(i) in members"
+                v-on:deleteCurrent="deleteData()"
                 :key="i.id">
             </MemberItem>
         </div>
@@ -48,11 +48,8 @@ export default {
         ...mapGetters(['members'])
     },
     methods: {
-        deleteData(id,index) {
-            this.items.splice(index,1)
-            membersApi.deleteMemberByID(id).then( resp => {
-                this.$refs.deleteModal.showModal()
-            })
+        deleteData() {
+            this.$refs.deleteModal.showModal()
         },
         updateData(id) {
             this.$router.push({path: `/member/edit/${id}`})
