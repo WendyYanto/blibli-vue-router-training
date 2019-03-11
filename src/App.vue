@@ -6,12 +6,18 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar'
+import Navbar from '@/components/Navbar'
+import userApi from '@/api/users'
 
 export default {
   name: 'App',
   components : {
     Navbar
+  },
+  created () {
+    userApi.getUser().then( (resp) => {
+      this.$store.commit('setUserData',resp.data)
+    })
   }
 }
 </script>

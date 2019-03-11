@@ -18,15 +18,25 @@
                     <a class="nav-link">
                         Member
                     </a>
-                </router-link>            
+                </router-link>          
             </ul>
+            <div class="nav-item" style="float:right;">
+                <a class="nav-link">
+                {{userData.name}}
+                </a>
+            </div>   
         </div>
     </nav>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+
     export default {
-        name: "Navbar"
+        name: "Navbar",
+        computed: {
+            ...mapGetters(['userData'])
+        }
     }
 </script>
 

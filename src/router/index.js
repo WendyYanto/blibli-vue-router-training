@@ -4,6 +4,7 @@ import RegisterPage from '@/pages/RegisterPage'
 import MemberPage from '@/pages/MemberPage'
 import UpdateMemberPage from '@/pages/UpdateMemberPage'
 import HomePage from '@/pages/HomePage'
+import MemberDetail from '@/components/members/MemberDetail'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: HomePage
+    },
+    {
+      path: '/members/:id',
+      name: 'MemberDetail',
+      component: MemberDetail
     }
   ],
   mode: 'history'

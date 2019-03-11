@@ -93,7 +93,7 @@ export default {
         }
     },
     created(){
-        axios.get(`/api/members/${this.$route.params.id}`).then(resp => {
+        axios.get(`/api/members/${$route.params.id}`).then(resp => {
             this.formData = resp.data
         })
     },
