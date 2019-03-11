@@ -150,8 +150,5 @@ export default {
         padding: 0.3rem 1.25rem;
         margin-top: 5px;
     }
-
-    .body-wrapper h3{
-
-    }
+    
 </style>

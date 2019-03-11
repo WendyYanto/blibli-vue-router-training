@@ -21,7 +21,7 @@ export default new Router({
       component: MemberPage
     },
     {
-      path: '/member/edit/:id',
+      path: '/member/:id/edit',
       name: 'UpdateMember',
       component: UpdateMemberPage
     },

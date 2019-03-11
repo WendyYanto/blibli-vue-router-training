@@ -7,13 +7,14 @@
         <div class="card">
             <div
                 class="card-body" 
-                v-if="items.length == 0">
+                v-if="members.length == 0">
                 No Members
             </div>
 
             <MemberItem
                 :item="i"
-                v-for="i in items"
+                v-for="(i,index) in members"
+                v-on:deleteCurrent="deleteData(i.id,index)"
                 :key="i.id">
             </MemberItem>
         </div>
@@ -32,6 +33,7 @@
 import membersApi from '@/api/members'
 import Modal from '@/components/Modal'
 import MemberItem from '@/components/members/MemberItem'
+import {mapGetters} from 'vuex'
 
 export default {
     name: "MemberPage",
@@ -39,21 +41,18 @@ export default {
         Modal,
         MemberItem
     },
-    data() {
-        return {
-            items:[]
-        }
-    },
     created() {
-        membersApi.getMembers().then((resp) =>
-            this.items = resp.data
-        )
+        this.$store.dispatch('getMembers')
+    },
+    computed: {
+        ...mapGetters(['members'])
     },
     methods: {
         deleteData(id,index) {
             this.items.splice(index,1)
-            axios.delete(`/api/members/${id}`)
-            this.$refs.deleteModal.showModal()
+            membersApi.deleteMemberByID(id).then( resp => {
+                this.$refs.deleteModal.showModal()
+            })
         },
         updateData(id) {
             this.$router.push({path: `/member/edit/${id}`})

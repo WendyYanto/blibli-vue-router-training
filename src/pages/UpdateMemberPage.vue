@@ -75,6 +75,7 @@
 <script>
 import axios from 'axios'
 import Modal from '@/components/Modal'
+import {mapGetters} from 'vuex'
 
 export default {
     name: 'UpdateMemberPage',
@@ -132,7 +133,12 @@ export default {
         isEmailValid(){
             return this.formData.email.indexOf('@') > 0
         }
-    }
+    },
+    watch: {
+        productDetail (data) {
+
+        }
+    },
 }
 </script>
 
