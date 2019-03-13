@@ -30,6 +30,9 @@ const mutations = {
   setUpdatedMemberDetail (state, value) {
     let index = state.members.findIndex(curr => curr.id === value.id)
     state.members[index] = value
+  },
+  setAddMember (state, value) {
+    state.members.push(value)
   }
 }
 
@@ -37,6 +40,11 @@ const actions = {
   getUserData ({commit}) {
     userApi.getUser().then((resp) => {
       commit('setUserData', resp.data)
+    })
+  },
+  createMember ({commit}, {data}) {
+    membersApi.createMember(data).then((resp) => {
+      commit('setAddMember', resp.data)
     })
   },
   getMembers ({commit}) {

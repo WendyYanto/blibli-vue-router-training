@@ -80,7 +80,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Modal from '@/components/Modal'
 
 export default {
@@ -105,13 +104,17 @@ export default {
                 return
             }
             
-            axios.post('/api/members',this.formData).then(resp => {
-                this.$refs.successModal.showModal()
+            this.$store.dispatch('createMember',{
+                data: this.formData
             })
             
-            setTimeout( () => {
-                this.$router.push({path : '/members'})
-            },2000)
+            this.callModal()
+            // setTimeout( () => {
+            this.$router.push({path : '/members'})
+            // },2000)
+        },
+        async callModal() {
+            await this.$refs.successModal.showModal()
         }
     },
     computed: {

@@ -4,6 +4,9 @@ export default {
   getMembers () {
     return axios.get('/api/members')
   },
+  createMember (data) {
+    return axios.post('/api/members', data)
+  },
   getMemberByID (id) {
     return axios.get('/api/members/' + id)
   },
