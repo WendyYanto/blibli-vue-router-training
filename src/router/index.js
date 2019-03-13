@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import RegisterPage from '@/pages/RegisterPage'
 import MemberPage from '@/pages/MemberPage'
-import UpdateMemberPage from '@/pages/UpdateMemberPage'
 import HomePage from '@/pages/HomePage'
 import MemberDetail from '@/components/members/MemberDetail'
 
@@ -19,11 +18,6 @@ export default new Router({
       path: '/members',
       name: 'Member',
       component: MemberPage
-    },
-    {
-      path: '/member/:id/edit',
-      name: 'UpdateMember',
-      component: UpdateMemberPage
     },
     {
       path: '/',

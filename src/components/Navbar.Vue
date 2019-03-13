@@ -20,14 +20,9 @@
                     </a>
                 </router-link>        
             </ul>
-            <div class="nav-item lang" style="float:right;">
-                <a @click="changeLang('id')" :class="{current_active: isActive('id')}" class="nav-link">
-                    <span>Indonesia</span>
-                </a>
-            </div>    
-            <div class="nav-item lang" style="float:right;">
-                <a @click="changeLang('en')" :class="{current_active: isActive('en')}" class="nav-link">
-                    <span>English</span>
+            <div class="nav-item lang" style="float:right;" v-for="i in LANGS" :key="i">
+                <a @click="changeLang(i)" :class="{current_active: isActive(i)}" class="nav-link">
+                    <span>{{i.toUpperCase()}}</span>
                 </a>
             </div>  
             <div class="nav-item" style="float:right;">

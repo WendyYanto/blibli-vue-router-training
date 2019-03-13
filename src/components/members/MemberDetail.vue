@@ -35,7 +35,7 @@
         <Modal
             ref="successModal"
             title="Information" 
-            content="Data Inserted Successfully"
+            content="Data Updated Successfully"
             type="success">
         </Modal>
 
